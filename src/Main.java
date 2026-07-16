@@ -3,66 +3,66 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int bakiye = 10000 ;
-        boolean atmcalisiyormu = true;
-        int dogrusifre = 1234 ;
-        boolean girisbasarilimi = false;
-        int kalanhak = 3;
-        System.out.println("Deka Banka Hoş Geldiniz");
-        while (girisbasarilimi == false && kalanhak > 0 ) {
-            System.out.println("Lütfen Şifrenizi Giriniz = " + kalanhak);
-            int girilensifre = scanner.nextInt();
-            if (girilensifre == dogrusifre) {
-                System.out.println("Şifre Doğru, Giriş Yapılıyor");
-                girisbasarilimi = true;
+        int balance = 10000 ;
+        boolean isAtmRunning = true;
+        int correctPassword = 1234 ;
+        boolean isLoginSuccessful = false;
+        int remaningAttempts = 3;
+        System.out.println("Welcom to Deka Bank");
+        while (isLoginSuccessful == false && remaningAttempts > 0 ) {
+            System.out.println("Pleas Enter Your Password = " + remaningAttempts);
+            int enterPassword = scanner.nextInt();
+            if (enterPassword == correctPassword) {
+                System.out.println("Password Correct, Logging in");
+                isLoginSuccessful = true;
             } else {
-                kalanhak = kalanhak - 1;
-                if (kalanhak > 0) {
-                    System.out.println("Hatalı Şifre, Lütfen Tekrar Deneyiniz");
+                remaningAttempts = remaningAttempts - 1;
+                if (remaningAttempts > 0) {
+                    System.out.println("Incorrect Password, Pleas Try Again");
                 } else {
-                    System.out.println("3 Defa Yanlış Deneme yaptınız,Kartınız Bloke Edilmiştir");
+                    System.out.println("3 Incorrect Attempts! Your Card Has Been Blocked");
                 }
 
             }
         }
-        if (girisbasarilimi) {
-            while (atmcalisiyormu) {
-                System.out.println("Lütfen İstediğiniz İşlemi Seçin");
-                System.out.println("1- Bakiye Sorgulama");
-                System.out.println("2- Para Çekme");
-                System.out.println("3- Para Yatırma");
-                System.out.println("4- Çık");
-                int secim = scanner.nextInt();
-                switch (secim) {
+        if (isLoginSuccessful) {
+            while (isAtmRunning) {
+                System.out.println("Pleas Select an Operation");
+                System.out.println("1- Balance Inquiry");
+                System.out.println("2- Withdraw Money");
+                System.out.println("3- Deposit Money");
+                System.out.println("4- Exit");
+                int choice = scanner.nextInt();
+                switch (choice) {
                     case 1:
-                        System.out.println("Güncel Bakiye +   = " + bakiye + "TL" );
+                        System.out.println("Current Balance +   = " + balance + "TL" );
                         break;
                     case 2:
-                        System.out.println("Çekilecek Tutar");
-                        int cekilecektutar = scanner.nextInt();
-                        if (cekilecektutar>bakiye)  {
-                            System.out.println("Yetersiz Bakiye Lütfen Tekrar Deneyiniz");
+                        System.out.println("Enter Amount to Withdraw");
+                        int withdrawAmount = scanner.nextInt();
+                        if (withdrawAmount>balance)  {
+                            System.out.println("Insufficient Balance. Please try again");
                         } else {
-                            bakiye = bakiye - cekilecektutar;
-                            System.out.println("Yeni Bakiye = " +  bakiye + "TL");
-                            System.out.println("Lütfen Paranızı Alınız");
+                            balance = balance - withdrawAmount;
+                            System.out.println("New Balance = " +  balance + "TL");
+                            System.out.println("Please take your cash");
                         } break;
                     case 3:
-                        System.out.println("Yatırılacak Tutar");
-                        int yatiricalaktutar = scanner.nextInt();
-                        bakiye = bakiye + yatiricalaktutar;
-                        System.out.println("Yeni Bakiye = " + bakiye + "TL");
+                        System.out.println("Enter Amount to Deposit");
+                        int depositAmount = scanner.nextInt();
+                        balance = balance + depositAmount;
+                        System.out.println("New Balance = " + balance + "TL");
                         break;
                     case 4:
-                        System.out.println("Kartınızı Alınız");
-                        atmcalisiyormu = false;
+                        System.out.println("Please take your card");
+                        isAtmRunning = false;
                         break;
                     default:
-                        System.out.println("Yanlış Rakam Girdiniz, Lütfen Tekarar Deneyiniz");
+                        System.out.println("Invalid Option, Please Try Again");
                 }
             }
         } else {
-            System.out.println("Giriş başarısız olduğu için ATM menüsüne bağlanılamadı");
+            System.out.println("Login failed. Unable to connect to ATM services");
         }
     }
 }
