@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Bank {
@@ -18,23 +19,30 @@ public class Bank {
         }
         return input;
     }
-    public static User loginSystem(Scanner scanner, User user) {
+    public static User loginSystem(Scanner scanner, List<User> userList) {
         int remainingAttempts = 3;
-        while (remainingAttempts > 0) {
-            System.out.print("Please Enter Your Password (Attempts Left: " + remainingAttempts + "): ");
-            int enterPassword = SafeInt(scanner);
 
-            if (enterPassword == user.getPassword()) {
-                System.out.println("Password Correct. Welcome, " + user.getFirstName() + " " + user.getLastName() + "!");
-                return user;
-            } else {
-                remainingAttempts--;
-                if (remainingAttempts > 0) {
-                    System.out.println("Incorrect Password! Please try again");
+        while (remainingAttempts > 0) {
+            System.out.println("\n=== LOGIN SYSTEM ===");
+            System.out.print("Enter First Name: ");
+            String enteredName = scanner.next();
+
+            System.out.print("Enter Password (Attempts Left: " + remainingAttempts + "): ");
+            int enteredPassword = SafeInt(scanner);
+
+            for (User user : userList) {
+
+                if (user.getFirstName().equalsIgnoreCase(enteredName) && user.getPassword() == enteredPassword) {
+                    System.out.println("\nLogin Successful! Welcome, " + user.getFirstName() + " " + user.getLastName() + "!");
+                    return user;
                 }
             }
+            remainingAttempts--;
+            if (remainingAttempts > 0) {
+                System.out.println("Error: Invalid First Name or Password! Please try again.");
+            }
         }
-        return null;
+        return null; //
     }
     public static void runAtmMenu(Scanner scanner, User user) {
         boolean isRunning = true;
