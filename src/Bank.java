@@ -24,8 +24,8 @@ public class Bank {
             System.out.print("Please Enter Your Password (Attempts Left: " + remainingAttempts + "): ");
             int enterPassword = SafeInt(scanner);
 
-            if (enterPassword == user.password) {
-                System.out.println("Password Correct. Welcome, " + user.firstName + " " + user.lastName + "!");
+            if (enterPassword == user.getPassword()) {
+                System.out.println("Password Correct. Welcome, " + user.getFirstName() + " " + user.getLastName() + "!");
                 return user;
             } else {
                 remainingAttempts--;
@@ -44,23 +44,23 @@ public class Bank {
             int choice = SafeInt(scanner);
             switch (choice) {
                 case 1:
-                    System.out.println("Your current balance: " + user.balance + " TL");
+                    System.out.println("Your current balance: " + user.getBalance() + " TL");
                     break;
                 case 2:
                     System.out.print("Enter amount to withdraw: ");
                     int withdrawAmount = SafeInt(scanner);
-                    if (withdrawAmount > user.balance) {
+                    if (withdrawAmount > user.getBalance()) {
                         System.out.println("Error: Insufficient funds");
                     } else {
-                        user.balance -= withdrawAmount;
-                        System.out.println("Transaction successful. New Balance: " + user.balance + " TL");
+                        user.setBalance(user.getBalance() - withdrawAmount);
+                        System.out.println("Transaction successful. New Balance: " + user.getBalance() + " TL");
                     }
                     break;
                 case 3:
                     System.out.print("Enter amount to deposit: ");
                     int depositAmount = SafeInt(scanner);
-                    user.balance += depositAmount;
-                    System.out.println("Transaction successful. New Balance: " + user.balance + " TL");
+                    user.setBalance(user.getBalance() + depositAmount);
+                    System.out.println("Transaction successful. New Balance: " + user.getBalance() + " TL");
                     break;
                 case 4:
                     System.out.println("Thank you for using Deka Bank. Goodbye");
